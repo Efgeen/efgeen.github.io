@@ -1,0 +1,17 @@
+:root {
+    --efblack: #010101FF;
+    --efred: #F74843FF;
+}
+
+body {
+    /* Override(s) */
+    margin: 0;
+    /* Custom(s) */
+    background-color: var(--efblack);
+}
+
+body div {
+    color: var(--efred);
+    margin: 8px;
+}
+
