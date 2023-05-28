@@ -1,0 +1,97 @@
+<html>
+    <head>
+        <!-- <link rel="stylesheet" href="./os.css"> -->
+        <!-- <link rel="stylesheet" href="./window.css"> -->
+        <link rel="stylesheet" href="./wnd.css">
+    </head>
+    <body>
+        <style>
+            body {
+                background-color: #3F3F3FFF;
+                color: white;
+                font: 12px Verdana, sans-serif;
+            }
+        </style>
+
+        <script src="./wnd.js"></script>
+
+        <div class="wnd2" style="width: 640px; height: 480px;">
+            <div>
+                <ul>
+                    <li>
+                        <img src="./../cmd.png">
+                    </li>
+                    <li>
+                        Terminal
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        
+                    </li>
+                </ul>
+                <ul>
+                    <li>
+                        <button onclick="wnd.minimize(this, minimized => { setTimeout(() => { wnd.minimize(this); }, 1000); });">&#x1F5D5;</button>
+                    </li>
+                    <li>
+                        <button onclick="wnd.maximize(this);">&#x1F5D6;</button>
+                    </li>
+                    <li>
+                        <button onclick="wnd.close(this);">&#x1F5D9;</button>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <div>
+                    <div style="margin: 8px;">Client Area</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="wnd" style="width: 320px; height: 240px; color: white; display:none">
+            <div>
+                <ul>
+                    <li>
+                        <img src="./../cmd.png">
+                    </li>
+                    <li>Window</li>
+                </ul>
+                <ul>
+                    <li>Mid</li>
+                </ul>
+                <ul>
+                    <li><button onclick="">m</button></li>
+                    <li><button onclick="">M</button></li>
+                    <li><button onclick="">X</button></li>
+                </ul>
+            </div>
+
+            <div class="mid">
+                <div>
+                    A
+                    <!-- <ul>
+                        <li>
+                            Vertical Text Inwards
+                        </li>
+                    </ul> -->
+                </div>
+                <div>B</div>
+                <div>
+                    C
+                    <!-- <ul>
+                        <li>
+                            Vertical Text Inwards
+                        </li>
+                    </ul> -->
+                </div>
+            </div>
+
+            <div>
+                <ul>
+                    <li>Test</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+</html>

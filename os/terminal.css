@@ -1,0 +1,14 @@
+#terminal {
+    font: 14px Consolas, monospace !important;
+    position: absolute;
+    width: calc(100% - 16px);
+    height: calc(100% - 16px);
+    padding: 8px;
+    color: #3BFF8EFF;
+    overflow-y: scroll;
+}
+
+#terminal > * {
+    font: 14px Consolas, monospace !important;
+    color: #3BFF8EFF;
+}

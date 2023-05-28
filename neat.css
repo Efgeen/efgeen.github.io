@@ -1,0 +1,12 @@
+.subdiv {
+    position: relative;
+    overflow: auto; 
+    left: 15%;
+    width: 70%;
+    height: 100%;
+    background-color: var(--efalpha);
+}
+
+.subdiv > * {
+    margin: 8px;
+}

@@ -1,0 +1,217 @@
+:root {
+    /* colors */
+    --efred: #F74843FF;
+    --efgreen: #3BFF8EFF;
+    --efblue: #3BA9FFFF;
+
+    --efwhite: #FEFEFEFF;
+    --eflightgray: #BFBFBFFF;
+    --efgray: #7F7F7FFF;
+    --efdarkgray: #3F3F3FFF;
+    --efblack: #010101FF;
+
+    --efwhitealpha: #0101011F;
+    --eflightgrayalpha: #0101013F;
+    --efgrayalpha: #0101017F;
+    --efdarkgrayalpha: #010101BF;
+    --efblackalpha: #010101DF;
+    
+    /* --efgray: #1B1B1BFF; rename to efgrain */
+
+    --osx: 0px;
+    --osy: 0px;
+    --osw: 100%;
+    --osh: 100%;
+
+    --barheight: 30px;
+    --baritemwidth: 80px;
+
+    --primary: var(--efblack);
+    --secondary: var(--efwhite);
+    --tetriary: var(--efred);
+}
+
+body {
+    margin: 0px;
+}
+
+/* defaults */
+* {
+    color: var(--secondary);
+    font: 12px Verdana, sans-serif;
+}
+
+/* o */
+#os {
+    background-color: var(--efblack);
+    box-sizing: border-box;
+    border: 1px solid var(--secondary);
+    position: absolute;
+    left: var(--osx);
+    top: var(--osy);
+    width: var(--osw);
+    height: var(--osh);
+}
+
+/* bars */
+.bar {
+    background-color: var(--primary);
+    position: absolute;
+    width: 100%;
+    height: var(--barheight);
+}
+
+.bar > ul {
+    display: block;
+    list-style: none;
+    margin-block: 0px;
+    margin-inline: 0px;
+    padding-inline-start: 0px;
+    /* custom */
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    height: var(--barheight);
+    font-size: 0px;
+}
+
+.bar > ul:not(.lhs):not(.rhs) {
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.bar > ul > li {
+    display: inline-block;
+    width: calc(var(--baritemwidth) + 1px);
+    box-sizing: border-box;
+    /* font-size: 12px; */
+    /* overflow: hidden; */
+}
+
+.bar > ul.lhs > li {
+    border-right: 1px solid var(--secondary);
+}
+
+.bar > ul.rhs > li {
+    border-left: 1px solid var(--secondary);
+}
+
+.bar > ul > li > * {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    width: 100%;
+}
+
+.bar > ul > li > span {
+    text-align: center;
+    line-height: 30px;
+}
+
+.bar > ul > li > span > a {
+    line-height: 30px;
+}
+
+button {
+    position: relative;
+    width: var(--baritemwidth);
+    height: 100%;
+    padding: 0px;
+    background-color: transparent;
+    appearance: none;
+    border-width: 0px;
+}
+
+button:hover {
+    background-color: var(--tetriary);
+    cursor: pointer;
+}
+
+#top {
+    border-bottom: 1px solid var(--secondary);
+}
+
+/* 
+.bar > ul {
+    left: 50% !important;
+} */
+
+#bot {
+    position: absolute;
+    width: calc(100vw - 2px);
+    bottom: 1px;
+    border-top: 1px solid var(--secondary);
+}
+
+.lhs {
+    margin-left: 8px;
+}
+
+.rhs {
+    right: 0px;
+    margin-right: 8px;
+}
+
+/* mid */
+#mid {
+    position: absolute;
+    top: calc(var(--barheight) + 1px);
+    width: calc(100%);
+    height: calc(100% - (var(--barheight) * 2) - 3px);
+}
+
+#desktop {
+    position: relative;
+    height: 100%;
+    background-image: url("./background.png");
+    background-size: cover;
+    background-position: center center;
+    filter: saturate(200%);
+
+    /* gridlike behavior */
+
+}
+
+#desktop > ul {
+    display: grid;
+    list-style: none;
+    margin-block: 0px;
+    margin-inline: 0px;
+    padding-inline-start: 0px;
+    /* custom */
+    grid-template-columns: repeat(auto-fit, 80px);
+    grid-template-rows: repeat(auto-fit, 96px);
+    gap: 8px;
+    padding: 8px;
+    overflow: auto;
+}
+
+#desktop > ul > li {
+
+}
+
+#desktop > * {
+    filter: saturate(50%);
+}
+
+.shortcut {
+    position: relative;
+
+    width: 80px;
+    height: 96px;
+
+    background-image: url("./discord.png");
+    background-size: 64px 64px;
+    background-position: 8px 8px;
+    background-repeat: no-repeat;
+}
+
+.shortcut > span {
+    color: var(--efwhite);
+    position: absolute;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    text-align: center;
+    line-height: 16px;
+}

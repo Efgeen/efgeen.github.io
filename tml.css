@@ -1,0 +1,22 @@
+:root {
+    --tmlcolor: #F74843FF;
+}
+
+#tml {
+    color: var(--tmlcolor);
+    font: 16px Consolas, monospace;
+}
+
+.console-cursor {
+    display: inline-block;
+    width: 10px;
+    height: 14px;
+    background-color: white;
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0;
+    }
+}

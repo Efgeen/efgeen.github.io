@@ -1,0 +1,277 @@
+<html>
+    <head>
+        <title>Efgeen</title>
+        <link rel="stylesheet" href="./os.css">
+        <link rel="stylesheet" href="./wnd/wnd.css">
+        <link rel="stylesheet" href="./terminal.css">
+        <link rel="stylesheet" href="./cur/cur.css">
+    </head>
+    <body>
+        <script src="./cur/cur.js"></script>
+        <div id="cur"></div>
+
+        <div id="os">
+            <div id="top" class="bar">
+                <ul class="lhs">
+                    
+                </ul>
+
+                <ul>
+                    <li style="width: calc((var(--baritemwidth) * 2) + 1px);">
+                        <span id="datetime"></span>
+                    </li>
+                </ul>
+
+                <ul class="rhs">
+                    <li style="width: calc((var(--baritemwidth) / 2) + 1px);">
+                        <button onclick="os.brightness();">&#128262;</button>
+                    </li>
+                    <li style="width: calc((var(--baritemwidth) / 2) + 1px);">
+                        <button>&#128266;</button>
+                    </li>
+                </ul>
+            </div>
+
+            <div id="mid">
+                <div id="desktop">
+                    <ul>
+                        <li>
+                            <button class="shortcut">
+                                <span>Recycler</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="shortcut">
+                                <span>Projects</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button class="shortcut">
+                                <span>Discord</span>
+                            </button>
+                        </li>
+                    </ul>
+
+                    <script src="./wnd/wnd.js"></script>
+
+                    <div class="wnd2" style="width: 640px; height: 480px;">
+                        <div>
+                            <ul>
+                                <li>
+                                    <img src="./cmd.png">
+                                </li>
+                                <li>
+                                    Terminal
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    whoami
+                                </li>
+                            </ul>
+                            <ul>
+                                <li>
+                                    <button onclick="wnd.minimize(this, minimized => { setTimeout(() => { wnd.minimize(this); }, 1000); });">&#x1F5D5;</button>
+                                </li>
+                                <li>
+                                    <button onclick="wnd.maximize(this);">&#x1F5D6;</button>
+                                </li>
+                                <li>
+                                    <button onclick="wnd.close(this);">&#x1F5D9;</button>
+                                </li>
+                            </ul>
+                        </div>
+                        <div>
+                            <div>
+                                <script src="./terminal.js"></script>
+                            <div id="terminal"></div>
+                            <script>
+                                terminal.input("whoami<br>", () => {
+                                    terminal.output(
+                                        `
+                                        Hello, 
+                                        my name is Efgeen, 
+                                        and I am a dedicated software engineer with an incontestable
+                                        commitment to master the intricacies of low-level programming. 
+                                        <br>
+                                        <br>
+                                        At only 24 years of age, I have already devoted countless hours
+                                        honing my skills and expertise in the field of software development,
+                                        and I am continuously seeking to expand my knowledge and capabilities.
+                                        <br>
+                                        <br>
+                                        
+
+                                        
+                                        My areas of focus include advanced programming techniques and optimization strategies, 
+                                        with a particular love for bitwise operations and their applications in high-performance code.
+
+                                        c language
+                                        c# language
+
+                                        netcode
+                                        bitwise operations
+                                        game engine development
+                                        entity component system development
+
+                                        At only 24 years old, 
+                                        I have already devoted countless hours to
+                                        developing my skills and expertise
+                                        in the field of software development,
+                                        and I am constantly striving to expand my knowledge
+                                        and push the boundaries of what is possible within the world of software development.
+
+                                        Hello, my name is Efgeen and I am a skilled software engineer with a deep passion for programming. 
+                                        At 24 years old, I have already devoted countless hours to mastering the intricacies of software development and continuously seek to expand my knowledge and skills.
+                                        <br>
+                                        <br>
+                                        My name is Efgeen. I am a 24-year-old software engineer. 
+                                        <br>
+                                        <br>
+                                        I am deeply passionate about programming and devote the majority of my free time to continuously learning, 
+                                        practicing, and perfecting my expertise in the C language. 
+                                        <br>
+                                        <br>
+                                        My areas of focus include advanced programming techniques and optimization strategies, 
+                                        with a particular love for bitwise operations and their applications in high-performance code.
+                                        <br>
+                                        <br>
+                                        In addition to my expertise in the C language and advanced programming techniques, 
+                                        I also have extensive experience in a range of programming areas, 
+                                        including netcode development, game hacking, game engine development, and the implementation of the Entity Component System (ECS). 
+                                        My passion for programming has led me to pursue diverse areas of focus, 
+                                        from high-performance code optimization to efficient implementation of complex programming systems.`);
+                                });
+                            </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="wnd2" style="width: 640px; height: 480px;">
+                        <div class="titlebar">
+                            <ul class="lhs">
+                                <li class="icon">
+                                    <img src="./discord.png">
+                                </li>
+                                <li class="title">
+                                    <span>Terminal</span>
+                                </li>
+                            </ul>
+
+                            <ul class="rhs">
+                                <li><button onclick="os.terminal(false);">X</button></li>
+                            </ul>
+                        </div>
+
+                        <div class="mid">
+                            <script src="./terminal.js"></script>
+                            <div id="terminal"></div>
+                            <script>
+                                terminal.input("whoami<br>", () => {
+                                    terminal.output(
+                                        `
+                                        Hello, 
+                                        my name is Efgeen, 
+                                        and I am a dedicated software engineer with an incontestable
+                                        commitment to master the intricacies of low-level programming. 
+                                        <br>
+                                        <br>
+                                        At only 24 years of age, I have already devoted countless hours
+                                        honing my skills and expertise in the field of software development,
+                                        and I am continuously seeking to expand my knowledge and capabilities.
+                                        <br>
+                                        <br>
+                                        
+
+                                        
+                                        My areas of focus include advanced programming techniques and optimization strategies, 
+                                        with a particular love for bitwise operations and their applications in high-performance code.
+
+                                        c language
+                                        c# language
+
+                                        netcode
+                                        bitwise operations
+                                        game engine development
+                                        entity component system development
+
+                                        At only 24 years old, 
+                                        I have already devoted countless hours to
+                                        developing my skills and expertise
+                                        in the field of software development,
+                                        and I am constantly striving to expand my knowledge
+                                        and push the boundaries of what is possible within the world of software development.
+
+                                        Hello, my name is Efgeen and I am a skilled software engineer with a deep passion for programming. 
+                                        At 24 years old, I have already devoted countless hours to mastering the intricacies of software development and continuously seek to expand my knowledge and skills.
+                                        <br>
+                                        <br>
+                                        My name is Efgeen. I am a 24-year-old software engineer. 
+                                        <br>
+                                        <br>
+                                        I am deeply passionate about programming and devote the majority of my free time to continuously learning, 
+                                        practicing, and perfecting my expertise in the C language. 
+                                        <br>
+                                        <br>
+                                        My areas of focus include advanced programming techniques and optimization strategies, 
+                                        with a particular love for bitwise operations and their applications in high-performance code.
+                                        <br>
+                                        <br>
+                                        In addition to my expertise in the C language and advanced programming techniques, 
+                                        I also have extensive experience in a range of programming areas, 
+                                        including netcode development, game hacking, game engine development, and the implementation of the Entity Component System (ECS). 
+                                        My passion for programming has led me to pursue diverse areas of focus, 
+                                        from high-performance code optimization to efficient implementation of complex programming systems.`);
+                                });
+                            </script>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+
+            <div id="bot" class="bar">
+                <ul class="lhs">
+                    <li>
+                        <button onclick="os.desktop();">
+                            Desktop
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="os.terminal(true);">
+                            Terminal
+                        </button>
+                    </li>
+                    <!-- <li style="width: calc((var(--baritemwidth) * 2) + 1px);">
+                        <span>
+                            <a href="https://discord.com/users/241950416542236672/add-friend" target="_blank">
+                                My Discord
+                            </a>
+                        </span>
+                    </li>
+                    <li style="width: calc((var(--baritemwidth) * 2) + 1px);">
+                        <span>
+                            <a href="https://discord.gg/2PUU3aumRw" target="_blank">
+                                My Discord Server
+                            </a>
+                        </span>
+                    </li> -->
+                </ul>
+
+                <ul>
+                    <li style="width: calc((var(--baritemwidth) * 2) + 1px);"WIP>
+                        <span>0.1.1 (Work In Progress)</span>
+                    </li>
+                </ul>
+
+                <ul class="rhs">
+                    <li style="width: calc((var(--baritemwidth) * 2) + 1px);">
+                        <span>&copy; 2023 Efgeen</a></span>
+                    </li>
+                </ul>
+            </div>
+
+            <script src="./os.js"></script>
+        </div>
+
+    </body>
+</html>

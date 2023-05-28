@@ -12,7 +12,9 @@
     top: -110%;
     width: 300%;
     /* Efgeen */
-    animation: grain 0.3s steps(30) infinite; /* grain 1s steps(50) infinite; */
+    /* animation: grain 0.3s steps(30) infinite; */
+    /* Grain */
+    animation: grain 1s steps(50) infinite;
     z-index: -30;
 }
 

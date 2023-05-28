@@ -1,0 +1,67 @@
+.window {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background-color: var(--efblackalpha);
+    box-sizing: border-box;
+    border: 1px solid var(--secondary);
+}
+
+.window > .titlebar {
+    background-color: var(--primary);
+    height: 30px;
+    border-bottom: 1px solid var(--secondary);
+}
+
+.titlebar > ul {
+    display: block;
+    list-style: none;
+    margin-block: 0px;
+    margin-inline: 0px;
+    padding-inline-start: 0px;
+    /* custom */
+    position: absolute;
+    margin: 0px;
+    padding: 0px;
+    height: var(--barheight);
+    font-size: 0px;
+}
+
+.titlebar > ul > li {
+    display: inline-block;
+    text-align: center;
+}
+
+.titlebar > ul > li.icon {
+    width: var(--barheight);
+    height: var(--barheight);
+    /* padding: calc((var(--barheight) - 16px) / 2); */
+}
+
+.titlebar > ul > li.icon > img {
+    width: 16px;
+    height: 16px;
+    padding: calc((var(--barheight) - 16px) / 2);
+}
+
+.titlebar > ul > li.title {
+    position: absolute;
+    box-sizing: border-box;
+}
+
+.titlebar > ul > li.title > span {
+    text-align: center;
+    line-height: 30px;
+    /* margin: 0px 4px 0px 4px; */
+}
+
+.titlebar > ul.rhs > li {
+    border-left: 1px solid var(--secondary);
+}
+
+.window > .mid {
+    position: absolute;
+    height: calc(100% - 30px - 1px);
+    width: 100%;
+}
