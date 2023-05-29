@@ -5,7 +5,7 @@ const rainbow = (() => {
     let interval_ = 6;
     let accumulated_ = 0.0;
     function hex2rgb(hex) {
-        const shorthandRegex = /^#?([A-F\d]{2})([A-F\d]{2})([A-F\d]{2})([A-F\d]{2})?$/i;
+        const shorthandRegex = /^\s*#?([A-F\d]{2})([A-F\d]{2})([A-F\d]{2})([A-F\d]{2})?$/i;
         const result = shorthandRegex.exec(hex);
         const r = parseInt(result[1], 16);
         const g = parseInt(result[2], 16);

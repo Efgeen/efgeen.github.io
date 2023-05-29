@@ -1,5 +1,5 @@
 const os = (() => {
-    let tickRate_ = 8;
+    let tickRate_ = 16;
     let execTime_ = 0;
     let deltaTime_ = 0;
 
