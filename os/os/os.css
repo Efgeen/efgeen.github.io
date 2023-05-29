@@ -1,0 +1,118 @@
+:root {
+    --efalpha: #010101BF;
+    --efblack: #010101FF;
+    --efwhite: #FEFEFEFF;
+    --font-size: 12px;
+
+    --efred: #F74843FF;
+    --efyellow: #F2F743FF;
+    --efgreen: #43F748FF;
+    --efaqua: #43F2F7FF;
+    --efblue: #4843F7FF;
+    --efmagenta: #F743F2FF;
+
+    --efprimary: var(--efred);
+}
+
+body {
+    margin: 0px;
+}
+
+div#os {
+    background-color: var(--efblack);
+    border: 1px solid var(--efprimary);
+    cursor: none;
+    color: var(--efprimary);
+    /* unselectable */
+    -webkit-user-select: none; /* Safari/Chrome */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none;
+    /* font */
+    font: normal normal var(--font-size) Verdana, sans-serif;
+}
+
+/* background */
+div#os > div#bg {
+    position: absolute;
+    width: calc(100% - 2px);
+    height: calc(100% - 2px);
+    background-image: url("./../background.png");
+    background-size: cover;
+    background-position: center center;
+    filter: invert(100%);
+    /* z-index: -1; */
+}
+
+/* normalize */
+div#os ul {
+    list-style-type: none;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
+/* top, mid, bot */
+div#os > ul:first-of-type {
+    font-size: 0px;
+}
+div#os > ul:first-of-type > li {
+    display: block;
+}
+
+/* top, bot */
+div#os > ul:first-of-type > li:first-of-type:nth-last-of-type(3),
+div#os > ul:first-of-type > li:last-of-type:nth-of-type(3) {
+    height: 30px;
+    background-color: var(--efalpha);
+    backdrop-filter: blur(3px);
+}
+
+/* top */
+div#os > ul:first-of-type:last-of-type > li:first-of-type:nth-last-of-type(3) {
+    border-bottom: 1px solid var(--efprimary);
+}
+
+/* mid */
+div#os > ul:first-of-type:last-of-type > li:nth-of-type(2):nth-last-of-type(2) {
+    height: calc(100% - 64px);
+}
+
+/* bot */
+div#os > ul:first-of-type:last-of-type > li:last-of-type:nth-of-type(3) {
+    border-top: 1px solid var(--efprimary);
+}
+
+/* top, bot */
+div#os > ul:first-of-type:last-of-type > li:first-of-type > ul:first-of-type,
+div#os > ul:first-of-type:last-of-type > li:last-of-type > ul:first-of-type {
+    height: 100%;
+    line-height: 30px;
+    font-size: 0px;
+    text-align: center;
+}
+div#os > ul:first-of-type:last-of-type > li:first-of-type > ul:first-of-type > li,
+div#os > ul:first-of-type:last-of-type > li:last-of-type > ul:first-of-type > li {
+    display: inline-block;
+    height: 100%;
+    font-size: var(--font-size);
+    vertical-align: top;
+}
+
+/* top */
+/* div#os > ul:first-of-type:last-of-type > li:first-of-type:nth-last-of-type(3) > ul:first-of-type:last-of-type {
+    background-color: red;
+}
+div#os > ul:first-of-type:last-of-type > li:first-of-type:nth-last-of-type(3) > ul:first-of-type:last-of-type > li {
+    background-color: green;
+} */
+
+/* bot */
+/* div#os > ul:first-of-type:last-of-type > li:last-of-type:nth-of-type(3) > ul:first-of-type {
+    background-color: blue;
+}
+div#os > ul:first-of-type:last-of-type > li:last-of-type:nth-of-type(3) > ul:first-of-type > li {
+    background-color: yellow;
+} */
