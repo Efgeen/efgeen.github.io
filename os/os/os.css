@@ -21,7 +21,6 @@ body {
 div#os {
     background-color: var(--efblack);
     border: 1px solid var(--efprimary);
-    cursor: none;
     color: var(--efprimary);
     /* unselectable */
     -webkit-user-select: none; /* Safari/Chrome */
@@ -40,7 +39,7 @@ div#os > div#bg {
     background-image: url("./../background.png");
     background-size: cover;
     background-position: center center;
-    filter: invert(100%);
+    /* filter: invert(100%); */
     /* z-index: -1; */
 }
 
@@ -86,33 +85,60 @@ div#os > ul:first-of-type:last-of-type > li:last-of-type:nth-of-type(3) {
 }
 
 /* top, bot */
-div#os > ul:first-of-type:last-of-type > li:first-of-type > ul:first-of-type,
-div#os > ul:first-of-type:last-of-type > li:last-of-type > ul:first-of-type {
+div#os > ul:first-of-type:last-of-type > li:first-of-type > ul,
+div#os > ul:first-of-type:last-of-type > li:last-of-type > ul {
+    display: inline-block;
     height: 100%;
     line-height: 30px;
     font-size: 0px;
     text-align: center;
 }
-div#os > ul:first-of-type:last-of-type > li:first-of-type > ul:first-of-type > li,
-div#os > ul:first-of-type:last-of-type > li:last-of-type > ul:first-of-type > li {
+div#os > ul:first-of-type:last-of-type > li:first-of-type > ul > li,
+div#os > ul:first-of-type:last-of-type > li:last-of-type > ul > li {
     display: inline-block;
     height: 100%;
     font-size: var(--font-size);
     vertical-align: top;
 }
 
-/* top */
-/* div#os > ul:first-of-type:last-of-type > li:first-of-type:nth-last-of-type(3) > ul:first-of-type:last-of-type {
-    background-color: red;
-}
-div#os > ul:first-of-type:last-of-type > li:first-of-type:nth-last-of-type(3) > ul:first-of-type:last-of-type > li {
-    background-color: green;
-} */
+/*
 
-/* bot */
-/* div#os > ul:first-of-type:last-of-type > li:last-of-type:nth-of-type(3) > ul:first-of-type {
-    background-color: blue;
-}
-div#os > ul:first-of-type:last-of-type > li:last-of-type:nth-of-type(3) > ul:first-of-type > li {
-    background-color: yellow;
-} */
+the plan is
+
+div#os to be the overall container of the entire operative system
+
+i then want 1-3 divs inside of the div#os div
+
+if only 1 div is present, there is no topbar or botbar, just client area, this allows a user to fullscreen applications or auto hide the bars
+if 2 divs are present, the topbar isnt there, by default
+if 3 divs are present, all are shown
+if 0 or >=4, show nothing, display = none maybe
+
+the first and last div (if 3) will have 1-3 uls. 
+each ul can have any number of items, and will align them accordingly, similar to window
+this should be implemented standalone, so it can be reused in window implementation
+
+i will then have a window implementation, that lets me create windows very easily
+
+i will then have a terminal implementation, that simulates the functionality of a console, inspired by valve console
+
+i will then have a whoami implementation, this is a module onto the terminal, that will prevent user input, automatically fake input > whoami, and then display a description of myself
+
+i want a desktop implementation, this will have a grid, based on the size of the desktop, where items are snapped to, if you make it smaller than the items, an extension app will be added, that somehow opens up something that displays the hidden items
+
+i want a wallpaper implementation, this will allow you to have a wallpaper go behind topbar, botbar, neither or both, and it should be dynamically able to be changed to some preset wallpapers, just to flex the concept
+
+i want a link to my discord server, this is just gonna be an app on the desktop and show as discord, it should open it in a new tab
+
+explorer implementation, to browse a theoretical storage drive
+
+recycler, what can I do with a recycler? im not sure yet, but I should probably have one. I'll put C++ into it. Because of my dislike of C++. "C++.txt", opening this document will just contain jokes about C++ being bad.
+
+
+LOL
+
+In C++ you have smart pointers, in C you have smart enough programmers capable of proper memory management.
+
+In C++, you have smart pointers, while in C, you have programmers who rely on their intelligence and expertise to handle memory management, instead of leaning on crutches like unnecessary smart pointer abstractions.
+
+*/
