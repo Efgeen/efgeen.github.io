@@ -91,3 +91,102 @@ document.addEventListener('DOMContentLoaded', function() {
         setTimeout(tick, to = Math.max((1000 / os.tickRate) - (dt - to), 0));
     })();
 });
+
+let showingTop = false;
+let isTopShown = true;
+function showTop(show) {
+    if (showingTop) {
+        return;
+    }
+    showingTop = true;
+
+    switch(show) {
+        case true:
+        case false:
+            break;
+        default:
+            show = !isTopShown;
+            break;
+    }
+
+    let first = document.querySelector(`div#os > div:first-of-type:last-of-type,
+                                        div#os > div:first-of-type:nth-last-of-type(2), 
+                                        div#os > div:first-of-type:nth-last-of-type(3)`);
+    let second = document.querySelector(`div#os > div:last-of-type:nth-of-type(2),
+                                         div#os > div:nth-of-type(2):nth-last-of-type(2)`);
+    let third = document.querySelector("div#os > div:last-of-type:nth-of-type(3)");
+    
+    let top; 
+    let mid;
+    let bot;
+    if (!first || !second) {
+        return;
+    }
+    else if (!third) {
+        if (first.classList.contains("top") || second.classList.contains("mid")) {
+            top = first;
+            mid = second;
+            if (show) {
+                top.style.height = "30px";
+            }
+            else {
+                top.style.height = "0px";
+            }
+        }
+    }
+    else {
+        top = first;
+        mid = second;
+        bot = third;
+        
+        console.log();
+        if (show) {
+            top.style.height = "30px";
+            mid.style.height = `${parseInt(window.getComputedStyle(mid).height) + 30}px`;
+        }
+        else {
+            top.style.height = "0px";
+            mid.style.height = `${parseInt(window.getComputedStyle(mid).height) - 30}px`;
+        }
+    }
+
+    console.log(top);
+    console.log(mid);
+    console.log(bot);
+
+    show = !isTopShown;
+    
+    /* if you have two, assume mid and bot, unless first is marked .top or second is marked .mid */
+    // top = document.querySelector("div#os > div:first-of-type:nth-last-of-type(2).top");
+    // mid = document.querySelector("div#os > div:first-of-type:nth-last-of-type(2):not(.mid), div#os > div:last-of-type:nth-of-type(2).mid");
+    // bot = document.querySelector("div#os > div:last-of-type:nth-of-type(2):not(.mid)");
+
+    // console.log(top);
+    // console.log(mid);
+    // console.log(bot);
+
+    // top = document.querySelector("div#os > div:first-of-type:nth-last-of-type(3)");
+    // mid = document.querySelector("div#os > div:nth-of-type(2):nth-last-of-type(2)");
+    // bot = document.querySelector("div#os > div:last-of-type:nth-of-type(3)");
+
+    // if (!top || !mid) {
+    //     return;
+    // }
+
+    // if (show != true && show != false) {
+    //     show = !isTopShown;
+    // }
+
+    // switch(show) {
+    //     case true:
+    //         top.style.height = "30px"
+    //         break;
+    //     default:
+    //         top.style.height = "0px";
+    //         break;
+    // }
+
+    isTopShown = show;
+    showingTop = false;
+}
+

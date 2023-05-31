@@ -11,7 +11,8 @@
     --efblue: #4843F7FF;
     --efmagenta: #F743F2FF;
 
-    --efprimary: var(--efred);
+    --efprimary: var(--efwhite);
+    --efsecondary: var(--efblack);
 }
 
 body {
@@ -19,28 +20,81 @@ body {
 }
 
 div#os {
-    background-color: var(--efblack);
+    background-color: var(--efsecondary);
     border: 1px solid var(--efprimary);
     color: var(--efprimary);
+    /* font */
+    font: normal normal var(--font-size) Verdana, sans-serif;
+    /* height */
+    height: calc(100% - 2px);
     /* unselectable */
     -webkit-user-select: none; /* Safari/Chrome */
     -moz-user-select: none; /* Firefox */
     -ms-user-select: none; /* IE/Edge */
     user-select: none;
-    /* font */
-    font: normal normal var(--font-size) Verdana, sans-serif;
+
 }
 
-/* background */
-div#os > div#bg {
-    position: absolute;
-    width: calc(100% - 2px);
-    height: calc(100% - 2px);
+/* n */
+div#os > div {
+    display: none;
+    width: 100%;
+}
+
+/* 1 */
+div#os > div:first-of-type:last-of-type {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* 2 */
+/* first where [0] != top && [1] != mid */
+div#os:not(:has(> div:nth-of-type(2):last-of-type.mid)) > div:first-of-type:nth-last-of-type(2):not(.top) {
+    display: block;
+    height: calc(100% - 30px - 1px);
+}
+/* second where [0] != top && [1] != mid */
+div#os:not(:has(> div:first-of-type:nth-last-of-type(2).top)) > div:nth-of-type(2):last-of-type:not(.mid) {
+    display: block;
+    height: 30px;
+    border-top: 1px solid var(--efprimary);
+}
+/* first where [0] == top || [1] == mid */
+div#os > div:first-of-type:nth-last-of-type(2).top,
+div#os:has(> div:nth-of-type(2):last-of-type.mid) > div:first-of-type:nth-last-of-type(2)  {
+    display: block;
+    height: 30px;
+    border-bottom: 1px solid var(--efprimary);
+}
+/* second where [0] == top || [1] == mid */
+div#os > div:nth-of-type(2):last-of-type.mid,
+div#os:has(> div:first-of-type:nth-last-of-type(2).top) > div:nth-of-type(2):last-of-type {
+    display: block;
+    height: calc(100% - 30px - 1px);
+}
+
+/* 3 */
+div#os > div:first-of-type:nth-last-of-type(3) {
+    display: block;
+    height: 30px;
+    border-bottom: 1px solid var(--efprimary);
+}
+div#os > div:nth-of-type(2):nth-last-of-type(2) {
+    display: block;
+    height: calc(100% - 30px - 1px - 30px - 1px);
+}
+div#os > div:last-of-type:nth-of-type(3) {
+    display: block;
+    height: 30px;
+    border-top: 1px solid var(--efprimary);
+}
+
+/* todo: move to wallpaper.css */
+.wallpaper {
     background-image: url("./../background.png");
     background-size: cover;
     background-position: center center;
-    /* filter: invert(100%); */
-    /* z-index: -1; */
 }
 
 /* normalize */
