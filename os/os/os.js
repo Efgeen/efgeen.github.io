@@ -1,11 +1,11 @@
-const os = (() => {
+const OS = (() => {
     let tickRate_ = 16;
     let execTime_ = 0;
     let deltaTime_ = 0;
     let tick = 0;
 
     return Object.freeze({
-        tm: tm,
+        time: TIME,
 
         get tickRate() {
             return tickRate_;
@@ -16,7 +16,7 @@ const os = (() => {
         get tickTime() {
             return 1 / tickRate_;
         },
-        get time() {
+        get runTime() {
             return performance.now();
         },
         get execTime() {
@@ -41,59 +41,164 @@ const os = (() => {
 })();
 
 document.addEventListener('DOMContentLoaded', function() {
+    let fpsMeasure = MEASURE.create(OS.tickRate);
+    let tpsMeasure = MEASURE.create(OS.tickRate);
+    let rttMeasure = MEASURE.create(1);
+
     /* prevent defaults */
     document.body.addEventListener('contextmenu', function(event) {
         event.preventDefault();
     });
 
-    /* tick */
-    // let prev;
-    // const tm = document.getElementById("tm");
+    /* ws */
+    let ws;
+    function connect() {
+        ws = new WebSocket("ws://localhost:8080");
+        ws.onerror = () => {};
+        ws.onopen = () => {};
+        ws.onmessage = () => {
+            msgrecv = true;
+        };
+    }
 
-    // rainbow.init(3);
+    connect();
 
-    // (function tick() {
-    //     prev = os.time;
+    let wsTime = 0;
+    let msgrecv = false;
+    
+    function message() {
+        if (ws.readyState !== WebSocket.OPEN) {
+            return;
+        }
+        wsTime = performance.now();
+        ws.send("ping");
+    }
+    function messagecb() {
+        MEASURE.add(rttMeasure, (performance.now() - wsTime));
+        msgrecv = false;
+    } 
 
-    //     tm.innerHTML = os.tm.update();
+    let versionElement;
+    let timeElement;
+    let fpsElement;
+    let tpsElement;
+    let rttElement;
+    if (!function start() {
+        if (!(versionElement = document.querySelector("#version"))) {
+            console.error("404 versionElement");
+            return false;
+        }
+        if (!(timeElement = document.querySelector("#time"))) {
+            console.error("404 timeElement");
+            return false;
+        }
+        if (!(fpsElement = document.querySelector("#fps"))) {
+            console.error("404 fpsElement");
+            return false;
+        }
+        if (!(tpsElement = document.querySelector("#tps"))) {
+            console.error("404 tpsElement");
+            return false;
+        }
+        if (!(rttElement = document.querySelector("#rtt"))) {
+            console.error("404 rttElement");
+            return false;
+        }
+        versionElement.innerHTML = `<span style="color: var(--efred);">0</span><span style="color: var(--efyellow);">.</span><span style="color: var(--efgreen);">1</span><span style="color: var(--efcyan);">.</span><span style="color: var(--efazure);">0</span></span><span style="color: var(--efmagenta);">-</span><span style="color: var(--efgray);">alpha</span>`;
+        fpsElement.innerHTML = `<span style="color: var(--efviolet)">FPS: </span><span style="color:var(--efgray)">Not Measured</span>`;
+        tpsElement.innerHTML = `<span style="color: var(--efmagenta)">TPS: </span><span style="color:var(--efgray)">Not Measured</span>`;
+        rttElement.innerHTML = `<span style="color: var(--efrose)">RTT: </span><span style="color: var(--efgray)">Not Connected</span>`;
+        return true;
+    }()) {
+        return;
+    }
 
-    //     console.log(`tick ${os.tick}, ${os.execTime.toFixed(4)}/${os.deltaTime.toFixed(4)} (${((os.execTime / os.deltaTime) * 100).toFixed(2)} %)`);
+    let oncePerSecondAccumulated = 0;
+    let oncePerSecondInterval = 1;
 
-    //     // frac = rainbow.exec(os.deltaTime);
-    //     // hue = rainbow.hue(frac);
-    //     // hex = rainbow.hex(frac);
-    //     // document.getElementById("cur").style.setProperty("filter", `hue-rotate(${(hue + 300) % 360}deg)`);
-    //     // document.documentElement.style.setProperty("--efprimary", hex);
+    let updateTime = OS.runTime;
+    let updateDeltaTime;
+    let updateTimeout = 0;
+    (function update() {
+        updateDeltaTime = (performance.now() - updateTime) / 1000;
+        updateTime = performance.now();
+        MEASURE.add(tpsMeasure, updateDeltaTime !== 0 ? 1 / updateDeltaTime : 0);
 
+        if (msgrecv) {
+            messagecb();
+        }
+        message();
 
-    //     os.execTime = (os.time - prev) / 1000;
-    //     setTimeout(tick, Math.max((os.tickTime - os.execTime) * 1000, 0));
-    //     os.deltaTime = Math.max(os.tickTime, os.execTime);
-    //     ++os.tick;
-    // })();
+        /* time, every tick for millisecond precision */
+        document.querySelector("#time").innerHTML = `${OS.time.toString(OS.time.now())}<span style="color: var(--efmagenta)">.</span><span style="color: var(--efgray)">${new Date().getMilliseconds().toString().padStart(3, "0")}</span>`;
 
-    const tm = document.getElementById("tm");
+        /* once per second */
+        oncePerSecondAccumulated += updateDeltaTime;
+        if (oncePerSecondAccumulated >= oncePerSecondInterval) {
+            let fps = MEASURE.average(fpsMeasure);
+            let tps = MEASURE.average(tpsMeasure);
+            let rtt = MEASURE.average(rttMeasure);
+            
+            fpsElement.innerHTML = `<span style="color: var(--efviolet)">FPS: </span><span style="color: ${fps == 0 ? "var(--efred)" : "var(--efgreen)"}">${fps.toFixed(2)}</span>`;
+            tpsElement.innerHTML = `<span style="color: var(--efmagenta)">TPS: </span><span style="color: ${tps == 0 ? "var(--efred)" : "var(--efgreen)"}">${tps.toFixed(2)}</span>`;
+            /* league ping: 0-129 = green, 130-199 = yellow, 200-349 = orange, 350 - 999 = red */
+            rttElement.innerHTML = `<span style="color: var(--efrose)">RTT: </span><span style="color: var(--ef${rttMeasure.values.length !== 0 ? (rtt < 130 ? "green" : (rtt < 200 ? "yellow" : (rtt < 350 ? "orange" : "red"))) : "gray"});">${rttMeasure.values.length !== 0 ? rtt.toFixed(2) : "Not Connected"}</span>`;
+            do {
+                oncePerSecondAccumulated -= oncePerSecondInterval;
+            } while(oncePerSecondAccumulated >= oncePerSecondInterval);
+        }
 
-    let t = os.time;
-    let dt;
-    let to = 0;
-    (function tick() {
-        dt = performance.now() - t;
-        t = performance.now();
-
-        // time
-        tm.innerHTML = os.tm.update();
-
-        // tick
-        // console.log(`tick = ${os.tick}, dt = ${dt.toFixed(2)}`);
-        
-        ++os.tick;
-        setTimeout(tick, to = Math.max((1000 / os.tickRate) - (dt - to), 0));
+        ++OS.tick;
+        setTimeout(update, (updateTimeout = Math.max((1 / OS.tickRate) - (updateDeltaTime - updateTimeout), 0)) * 1000);
     })();
+
+    let renderTime = performance.now();
+    let renderDeltaTime;
+    (function render() {
+        renderDeltaTime = (performance.now() - renderTime) / 1000;
+        renderTime = performance.now();
+        MEASURE.add(fpsMeasure, renderDeltaTime !== 0 ? 1 / renderDeltaTime : 0);
+        requestAnimationFrame(render);
+    })();
+
+    // let fpst = performance.now();
+    // (function fpsProc() {
+    //     let fpsdt = (performance.now() - fpst) / 1000;
+    //     fpst = performance.now();
+    //     MEASURE.add(fpsMeasure, 1 / fpsdt);
+    //     requestAnimationFrame(fpsProc);
+    // })();
 });
+
+
 
 let showingTop = false;
 let isTopShown = true;
+
+function showInit() {
+    let first = document.querySelector(`div#os > div:first-of-type:last-of-type,
+                                        div#os > div:first-of-type:nth-last-of-type(2), 
+                                        div#os > div:first-of-type:nth-last-of-type(3)`);
+    let second = document.querySelector(`div#os > div:last-of-type:nth-of-type(2),
+                                         div#os > div:nth-of-type(2):nth-last-of-type(2)`);
+    let third = document.querySelector("div#os > div:last-of-type:nth-of-type(3)");
+    
+    if (!first || !second) {
+        return null;
+    }
+
+    if (!third) {
+        if (!first.classList.contains("top") && !second.classList.contains("mid")) {
+            return { mid: first, bot: second };
+        }
+        else {
+            return { top: first, mid: second };
+        }
+    }
+
+    return { top: first, mid: second, bot: third };
+}
+
 function showTop(show) {
     if (showingTop) {
         return;
@@ -109,84 +214,87 @@ function showTop(show) {
             break;
     }
 
-    let first = document.querySelector(`div#os > div:first-of-type:last-of-type,
-                                        div#os > div:first-of-type:nth-last-of-type(2), 
-                                        div#os > div:first-of-type:nth-last-of-type(3)`);
-    let second = document.querySelector(`div#os > div:last-of-type:nth-of-type(2),
-                                         div#os > div:nth-of-type(2):nth-last-of-type(2)`);
-    let third = document.querySelector("div#os > div:last-of-type:nth-of-type(3)");
-    
-    let top; 
-    let mid;
-    let bot;
-    if (!first || !second) {
+    let res = showInit();
+
+    if (!res) {
         return;
     }
-    else if (!third) {
-        if (first.classList.contains("top") || second.classList.contains("mid")) {
-            top = first;
-            mid = second;
-            if (show) {
-                top.style.height = "30px";
-            }
-            else {
-                top.style.height = "0px";
-            }
+
+    let top = res.top;
+    let mid = res.mid;
+    let bot = res.bot;
+    
+    if (show) {
+        top.style.animation = "none";
+        void top.offsetWidth;
+        top.style.animation = "top 0.1s linear 0s 1 reverse backwards running";
+        mid.style.height = `${parseInt(window.getComputedStyle(mid).height) - 32}px`;
+        mid.style.transform = "translateY(0)";
+        if (!bot) {
+            mid.style.height = "calc(100% - 31px)";
+        }
+        else {
+            mid.style.height = "calc(100% - 62px)";
         }
     }
     else {
-        top = first;
-        mid = second;
-        bot = third;
-        
-        console.log();
-        if (show) {
-            top.style.height = "30px";
-            mid.style.height = `${parseInt(window.getComputedStyle(mid).height) + 30}px`;
+        top.style.animation = "none";
+        void top.offsetWidth;
+        top.style.animation = "top 0.1s linear 0s 1 normal forwards running";
+        mid.style.height = `${parseInt(window.getComputedStyle(mid).height) + 32}px`;
+        mid.style.transform = "translateY(-31px)";
+        if (!bot) {
+            mid.style.height = "100%";
         }
         else {
-            top.style.height = "0px";
-            mid.style.height = `${parseInt(window.getComputedStyle(mid).height) - 30}px`;
+            mid.style.height = "calc(100% - 31px)";
         }
     }
-
-    console.log(top);
-    console.log(mid);
-    console.log(bot);
-
-    show = !isTopShown;
-    
-    /* if you have two, assume mid and bot, unless first is marked .top or second is marked .mid */
-    // top = document.querySelector("div#os > div:first-of-type:nth-last-of-type(2).top");
-    // mid = document.querySelector("div#os > div:first-of-type:nth-last-of-type(2):not(.mid), div#os > div:last-of-type:nth-of-type(2).mid");
-    // bot = document.querySelector("div#os > div:last-of-type:nth-of-type(2):not(.mid)");
-
-    // console.log(top);
-    // console.log(mid);
-    // console.log(bot);
-
-    // top = document.querySelector("div#os > div:first-of-type:nth-last-of-type(3)");
-    // mid = document.querySelector("div#os > div:nth-of-type(2):nth-last-of-type(2)");
-    // bot = document.querySelector("div#os > div:last-of-type:nth-of-type(3)");
-
-    // if (!top || !mid) {
-    //     return;
-    // }
-
-    // if (show != true && show != false) {
-    //     show = !isTopShown;
-    // }
-
-    // switch(show) {
-    //     case true:
-    //         top.style.height = "30px"
-    //         break;
-    //     default:
-    //         top.style.height = "0px";
-    //         break;
-    // }
 
     isTopShown = show;
     showingTop = false;
 }
 
+let showingBot = false;
+let isBotShown = true;
+
+function showBot(show) {
+    if (showingBot) {
+        return;
+    }
+    showingBot = true;
+
+    switch(show) {
+        case true:
+        case false:
+            break;
+        default:
+            show = !isBotShown;
+            break;
+    }
+
+    let res = showInit();
+
+    if (!res) {
+        return;
+    }
+
+    let mid = res.mid;
+    let bot = res.bot;
+    
+    if (show) {
+        bot.style.animation = "none";
+        void bot.offsetWidth;
+        bot.style.animation = "bot 0.1s linear 0s 1 reverse backwards running";
+        mid.style.height = "calc(100% - 31px)";
+    }
+    else {
+        bot.style.animation = "none";
+        void bot.offsetWidth;
+        bot.style.animation = "bot 0.1s linear 0s 1 normal forwards running";
+        mid.style.height = "100%";
+    }
+
+    isBotShown = show;
+    showingBot = false;
+}
