@@ -1,0 +1,106 @@
+:root {
+    --efred: #F74843FF;
+    --efgray: #1B1B1BFF;
+    --efwhite: #FEFEFEFF;
+    --efalpha: #0101017F;
+    --efwidth: 160px;
+}
+
+body {
+    position: relative;
+    margin: 0;
+    background-color: var(--efgray);
+}
+
+#caina {
+    display: inline-block;
+    font-size: 10vw;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: Verdana, sans-serif;
+    color: var(--efwhite);
+    text-decoration: none;
+    -webkit-touch-callout: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+}
+
+#caina:hover {
+    color: var(--efred);
+}
+
+
+/* <ul> */
+div#nav > ul {
+    position: relative;
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    font-size: 0;
+}
+
+/* <li> */
+div#nav > ul > li {
+    display: inline-block;
+    width: var(--efwidth);
+    box-sizing: border-box;
+    font-size: 24px;
+    margin-left: 15px;
+}
+div#nav > ul > li:first-child {
+    margin-left: calc(var(--efwidth) + 15px);
+}
+div#nav > ul > li:last-child {
+    position: absolute;
+    left: 0px;
+    margin-left: 0px;
+}
+
+/* <a> */
+div#nav > ul > li > a {
+    display: block;
+    text-align: center;
+    /* font-size: 16px; */
+    color: var(--efwhite);
+    background-color: var(--efblack);
+    border: solid 1px var(--efwhite);
+    text-decoration: none;
+}
+div#nav > ul > li > a,
+div#nav > ul > li:target ~ li:last-child > a {
+    color: var(--efwhite);
+    border-color: var(--efwhite);
+}
+div#nav > ul > li:last-child > a,
+div#nav > ul > li:target > a {
+    color: var(--efred);
+    border-color: var(--efred);
+}
+
+
+/* <div> */
+div#nav > ul > li > div {
+    position: absolute;
+    margin-top: 15px;
+    left: 0px;
+    width: 100vw;
+    height: calc(100vh - 45px);
+    background-color: var(--efblack);
+    color: var(--efwhite);
+}
+div#nav > ul > li > div,
+div#nav > ul > li:target ~ li:last-child > div {
+    display: none;
+}
+div#nav > ul > li:last-child > div,
+div#nav > ul > li:target > div {
+    display: block;
+}

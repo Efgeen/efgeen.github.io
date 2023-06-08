@@ -1,106 +1,311 @@
 :root {
-    --efred: #F74843FF;
-    --efgray: #1B1B1BFF;
+    --efalpha: #010101BF;
+    --efblack: #010101FF;
     --efwhite: #FEFEFEFF;
-    --efalpha: #0101017F;
-    --efwidth: 160px;
+    --font-size: 12px;
+
+    --efgray: #9d9d9dFF;
+
+    --efred: #F74843FF;
+    --eforange: #f7a243FF;
+    --efyellow: #f2f743FF;
+    --efchartreuse: #98f743FF;
+    --efgreen: #43F748FF;
+    --efspring: #43f7a2FF;
+    --efcyan: #43f2f7FF;
+    --efazure: #4398f7FF;
+    --efblue: #4843F7FF;
+    --efviolet: #a243f7FF;
+    --efmagenta: #f743f2FF;
+    --efrose: #f74398FF;
+    
+    --efprimary: var(--efwhite);
+    --efsecondary: var(--efblack);
+    --eftetriary: var(--efalpha);
 }
 
 body {
-    position: relative;
-    margin: 0;
-    background-color: var(--efgray);
-}
-
-#caina {
-    display: inline-block;
-    font-size: 10vw;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: Verdana, sans-serif;
-    color: var(--efwhite);
-    text-decoration: none;
-    -webkit-touch-callout: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-}
-
-#caina:hover {
-    color: var(--efred);
-}
-
-
-/* <ul> */
-div#nav > ul {
-    position: relative;
     margin: 0px;
-    padding: 0px;
-    list-style: none;
+}
+
+div#os {
+    background-color: var(--efsecondary);
+    border: 1px solid var(--efprimary);
+    color: var(--efprimary);
+    /* font */
+    font: normal normal var(--font-size) Verdana, sans-serif;
+    /* height */
+    position: absolute;
+    height: calc(100% - 2px);
+    width: calc(100% - 2px);
+    /* unselectable */
+    -webkit-user-select: none; /* Safari/Chrome */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE/Edge */
+    user-select: none;
+    overflow: hidden;
+}
+
+/* n */
+div#os > div {
+    display: none;
+    width: 100%;
+    position: absolute;
+}
+
+/* 1 */
+/* mid */
+div#os > div:first-of-type:last-of-type {
+    display: block;
+    height: 100%;
+    top: 0px;
+}
+
+/* 2 */
+/* top */
+div#os > div:first-of-type:nth-last-of-type(2).top,
+div#os:has(> div:nth-of-type(2):last-of-type.mid) > div:first-of-type:nth-last-of-type(2)  {
+    display: block;
+    height: 30px;
+    border-bottom: 1px solid var(--efprimary);
+    top: 0px;
+    background-color: var(--eftetriary);
+}
+/* mid */
+div#os:not(:has(> div:nth-of-type(2):last-of-type.mid)) > div:first-of-type:nth-last-of-type(2):not(.top) {
+    display: block;
+    height: calc(100% - 30px - 1px);
+    top: 0px;
+    transition: 0.1s linear;
+}
+/* mid */
+div#os > div:nth-of-type(2):last-of-type.mid,
+div#os:has(> div:first-of-type:nth-last-of-type(2).top) > div:nth-of-type(2):last-of-type {
+    display: block;
+    height: calc(100% - 30px - 1px);
+    top: 31px;
+    transition: 0.1s linear;
+}
+/* bot */
+div#os:not(:has(> div:first-of-type:nth-last-of-type(2).top)) > div:nth-of-type(2):last-of-type:not(.mid) {
+    display: block;
+    height: 30px;
+    border-top: 1px solid var(--efprimary);
+    bottom: 0px;
+    background-color: var(--eftetriary);
+}
+
+/* 3 */
+/* top */
+div#os > div:first-of-type:nth-last-of-type(3) {
+    display: block;
+    height: 30px;
+    border-bottom: 1px solid var(--efprimary);
+    top: 0px;
+    background-color: var(--eftetriary);
+}
+/* mid */
+div#os > div:nth-of-type(2):nth-last-of-type(2) {
+    display: block;
+    height: calc(100% - 30px - 30px - 2px);
+    top: 31px;
+    transition: 0.1s linear;
+}
+/* bot */
+div#os > div:last-of-type:nth-of-type(3) {
+    display: block;
+    height: 30px;
+    border-top: 1px solid var(--efprimary);
+    bottom: 0px;
+    background-color: var(--eftetriary);
+}
+
+/* magic */
+@keyframes top {
+    0% {
+        transform: translateY(0);
+        clip-path: inset(0);
+    }
+    100% {
+        transform: translateY(-31px);
+        clip-path: inset(31px 0 0 0);
+    }
+}
+@keyframes bot {
+    0% {
+        transform: translateY(0);
+        clip-path: inset(0);
+    }
+    100% {
+        transform: translateY(31px);
+        clip-path: inset(0 0 31px 0);
+    }
+}
+
+/* COMPLEX */
+/* top, n child divs */
+div#os > div:first-of-type:nth-last-of-type(3) > div {
+    position: absolute;
+    height: 100%;
     font-size: 0;
 }
-
-/* <li> */
-div#nav > ul > li {
+div#os > div:first-of-type:nth-last-of-type(3) > div > div {
     display: inline-block;
-    width: var(--efwidth);
-    box-sizing: border-box;
-    font-size: 24px;
-    margin-left: 15px;
-}
-div#nav > ul > li:first-child {
-    margin-left: calc(var(--efwidth) + 15px);
-}
-div#nav > ul > li:last-child {
-    position: absolute;
-    left: 0px;
-    margin-left: 0px;
+    height: 100%;
+    line-height: 30px;
+    font-size: 12px;
+    vertical-align: top;
 }
 
-/* <a> */
-div#nav > ul > li > a {
+/* top, 1 child div */
+div#os > div:first-of-type:nth-last-of-type(3) > div:first-of-type:last-of-type {
+    /* background-color: var(--efred); */
+    left: 50%;
+    transform: translateX(-50%);
+}
+/* top, 3 child divs */
+div#os > div:first-of-type:nth-last-of-type(3) > div:first-of-type:nth-last-of-type(3) {
+    /* background-color: var(--efred); */
+    left: 0px;
+}
+div#os > div:first-of-type:nth-last-of-type(3) > div:nth-of-type(2):nth-last-of-type(2) {
+    /* background-color: var(--efgreen); */
+    left: 50%;
+    transform: translateX(-50%);
+}
+div#os > div:first-of-type:nth-last-of-type(3) > div:nth-of-type(3):last-of-type {
+    /* background-color: var(--efblue); */
+    right: 0px;
+}
+
+
+
+
+/* bot */
+div#os > div:last-of-type:nth-of-type(3) {
+
+}
+
+
+
+
+div#os > div > div > div.text {
+    padding: 0 3px 0 3px;
+}
+
+div#os > div > div:last-of-type > div:last-of-type {
+    margin-right: 3px;
+}
+div#os > div > div:first-of-type > div:first-of-type {
+    margin-left: 3px;
+}
+
+
+
+
+
+
+
+
+
+/* normalize */
+div#os ul {
+    list-style-type: none;
+    margin-block-start: 0em;
+    margin-block-end: 0em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+}
+
+/* top, mid, bot */
+div#os > ul:first-of-type {
+    font-size: 0px;
+}
+div#os > ul:first-of-type > li {
     display: block;
+}
+
+/* top, bot */
+div#os > ul:first-of-type > li:first-of-type:nth-last-of-type(3),
+div#os > ul:first-of-type > li:last-of-type:nth-of-type(3) {
+    height: 30px;
+    background-color: var(--efalpha);
+    backdrop-filter: blur(3px);
+}
+
+/* top */
+div#os > ul:first-of-type:last-of-type > li:first-of-type:nth-last-of-type(3) {
+    border-bottom: 1px solid var(--efprimary);
+}
+
+/* mid */
+div#os > ul:first-of-type:last-of-type > li:nth-of-type(2):nth-last-of-type(2) {
+    height: calc(100% - 64px);
+}
+
+/* bot */
+div#os > ul:first-of-type:last-of-type > li:last-of-type:nth-of-type(3) {
+    border-top: 1px solid var(--efprimary);
+}
+
+/* top, bot */
+div#os > ul:first-of-type:last-of-type > li:first-of-type > ul,
+div#os > ul:first-of-type:last-of-type > li:last-of-type > ul {
+    display: inline-block;
+    height: 100%;
+    line-height: 30px;
+    font-size: 0px;
     text-align: center;
-    /* font-size: 16px; */
-    color: var(--efwhite);
-    background-color: var(--efblack);
-    border: solid 1px var(--efwhite);
-    text-decoration: none;
 }
-div#nav > ul > li > a,
-div#nav > ul > li:target ~ li:last-child > a {
-    color: var(--efwhite);
-    border-color: var(--efwhite);
-}
-div#nav > ul > li:last-child > a,
-div#nav > ul > li:target > a {
-    color: var(--efred);
-    border-color: var(--efred);
+div#os > ul:first-of-type:last-of-type > li:first-of-type > ul > li,
+div#os > ul:first-of-type:last-of-type > li:last-of-type > ul > li {
+    display: inline-block;
+    height: 100%;
+    font-size: var(--font-size);
+    vertical-align: top;
 }
 
 
-/* <div> */
-div#nav > ul > li > div {
-    position: absolute;
-    margin-top: 15px;
-    left: 0px;
-    width: 100vw;
-    height: calc(100vh - 45px);
-    background-color: var(--efblack);
-    color: var(--efwhite);
-}
-div#nav > ul > li > div,
-div#nav > ul > li:target ~ li:last-child > div {
-    display: none;
-}
-div#nav > ul > li:last-child > div,
-div#nav > ul > li:target > div {
-    display: block;
-}
+
+/*
+
+the plan is
+
+div#os to be the overall container of the entire operative system
+
+i then want 1-3 divs inside of the div#os div
+
+if only 1 div is present, there is no topbar or botbar, just client area, this allows a user to fullscreen applications or auto hide the bars
+if 2 divs are present, the topbar isnt there, by default
+if 3 divs are present, all are shown
+if 0 or >=4, show nothing, display = none maybe
+
+the first and last div (if 3) will have 1-3 uls. 
+each ul can have any number of items, and will align them accordingly, similar to window
+this should be implemented standalone, so it can be reused in window implementation
+
+i will then have a window implementation, that lets me create windows very easily
+
+i will then have a terminal implementation, that simulates the functionality of a console, inspired by valve console
+
+i will then have a whoami implementation, this is a module onto the terminal, that will prevent user input, automatically fake input > whoami, and then display a description of myself
+
+i want a desktop implementation, this will have a grid, based on the size of the desktop, where items are snapped to, if you make it smaller than the items, an extension app will be added, that somehow opens up something that displays the hidden items
+
+i want a wallpaper implementation, this will allow you to have a wallpaper go behind topbar, botbar, neither or both, and it should be dynamically able to be changed to some preset wallpapers, just to flex the concept
+
+i want a link to my discord server, this is just gonna be an app on the desktop and show as discord, it should open it in a new tab
+
+explorer implementation, to browse a theoretical storage drive
+
+recycler, what can I do with a recycler? im not sure yet, but I should probably have one. I'll put C++ into it. Because of my dislike of C++. "C++.txt", opening this document will just contain jokes about C++ being bad.
+
+
+LOL
+
+In C++ you have smart pointers, in C you have smart enough programmers capable of proper memory management.
+
+In C++, you have smart pointers, while in C, you have smart enough programmers, capable of proper memory management, instead of leaning on crutches like unnecessary smart pointer abstractions.
+
+*/

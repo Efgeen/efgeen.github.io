@@ -1,0 +1,197 @@
+<html>
+    <head>
+        <title>Efgeen</title>
+        <link rel="icon" type="image/x-icon" href="./favicon.ico">
+        <link rel="stylesheet" href="./grain.css">
+        <link rel="stylesheet" href="./index.css">
+        <link rel="stylesheet" href="./highlight.css">
+        <link rel="stylesheet" href="./neat.css">
+
+        <!-- highlightjs -->
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/github-dark.min.css">
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+
+        <!-- handlebarsjs -->
+        <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+
+        <!-- gist -->
+        <script src="./gist.js"></script>
+
+        <!-- hbs -->
+        <script src="./hbs.js"></script>
+    </head>
+    <body>
+        <div id="grain"></div>
+        
+        <div id="nav">
+            <ul>
+                <li id="C#">
+                    <a href="#C#">C#</a>
+                    <div style="overflow: auto; left: calc(100vw / 6); width: calc(100vw / 1.5); background-color: var(--efalpha);">
+                        
+                        <h2 style="margin: 8px; font: 24px Verdana, sans-serif;">Expected 1.0.0</h2>
+
+                        <div id="expected" style="font: 12px Consolas, sans-serif; margin: 8px;">
+                            <p id="description" style="font: 14px Verdana, sans-serif;"></p>
+
+                            <input type="checkbox" id="comments" name="comments" value="Comments">
+                            <label for="comments">Comments</label><br>
+
+                            <script>
+                                function upd8(comments) {
+                                    gist.load("https://api.github.com/gists/cedebd3d74e929484dde38b4b415573b", function(data) {
+                                        // description
+                                        document
+                                            .getElementById("description")
+                                            .innerHTML = data.description;
+
+                                        // data
+                                        gist.raw(Object.values(data.files)[comments ? 0 : 1].raw_url, function(raw) {
+                                            document
+                                            .getElementById("expected")
+                                            .getElementsByTagName("pre")[0]
+                                            .getElementsByTagName("code")[0]
+                                            .innerHTML = hbs.gist(raw);
+
+                                            // highlight
+                                            hljs.highlightAll();
+                                        });
+                                    });
+                                }
+
+                                // load if check/uncheck
+                                document.getElementById("comments").addEventListener("change", function() {
+                                    upd8(this.checked);
+                                });
+
+                                // load one time by default
+                                upd8(document.getElementById("comments").checked ? true : false);
+                            </script>
+
+                            <pre><code class="language-csharp"></code></pre>
+                        </div>
+                    </div>
+                </li>
+
+                <li id="C">
+                    <a href="#C">C</a>
+                    <div style="overflow: auto">
+                        <h1 style="margin: 8px;">C</h1>
+                        <br>
+                        <p style="margin: 8px;">
+                            A work-in-progress,
+                            minimalistic,
+                            yet all-encompassing,
+                            browser-based,
+                            pixel-art art-style MMORPG.
+                            <br>
+                            <br>
+                            Glue: WebSocket, WebGL, WebRTC.
+                            <br>
+                            <br>
+                            Language: C89, strict conformity without exceptions.
+                            <br>
+                            <br>
+                            Ruleset: no stdlib, no dependenices (exception: stdarg.h macros provided by compiler for use in custom stdarg.h file.)
+                            <br>
+                            <br>
+                            Tools: Standalone clang.exe compiler w/ wasm-ld.exe linker for .wasm output.
+                            <br>
+                            <br>
+                            WebSocketServer: Custom, C89, Windows/Linux, Berkeley sockets.
+                            <br>
+                            <br>
+                            WebRTCServer: Custom, C89, Windows/Linux, Berkeley sockets.
+                        </p>
+                    </div>
+                </li>
+
+                <li id="CSS">
+                    <a href="#CSS">CSS</a>
+                    <div style="overflow: auto">
+                        <h1 style="margin: 8px">C#</h1>
+                        <br>
+                        <p>
+                            I'm in no way, shape or form a web dev, but this website is using a pretty cool trick I implemented that I haven't seen elsewhere with css targets and children to implement a JavaScript-less implementation of a navigation bar. See source code below.
+                        </p>
+                        <br>
+                        <p>
+                            abc
+                        </p>
+                    </div>
+                </li>
+
+                <li id="Cainance">
+                    <a href="#Cainance">Cainance</a>
+                    <div>
+                        <p>
+                            Cainance is the current name of my latest project, 
+                            a web-based MMORPG framework written in C, 
+                            without the use of Emscripten, 
+                            accomplished by using the clang compiler and the wasm-ld linker. 
+                            I have to export and import functions from C/JS based on my own needs.
+                            The idea is to wrap the JS implementations of WebGL, WebSocket and WebRTC for immediate use within C.
+                            The WebSocket server and WebRTC server will run on the same machine, allowing the WebSocket server to be used as a signaling server to establish a connection to the WebRTC server. 
+                            WebGL will be used for rendering. 
+                        </p>
+                        <br>
+                        <p>
+                            I've only got the WebSocket wrapper/implementation in place so far.
+                            Should you be interested, feel free to head over to <a href="https://cainance.com">cainance.com</a> to check it out (press Play to load the module and check console output). 
+                            It connects to a public echo WebSocket server, sends Hello World and receives messages from other clients.
+                            It currently doesn't parse the messages as I haven't decided on the best method of doing so yet.
+                        </p>
+                    </div>
+                </li>
+
+                <li id="Index">
+                    <a href="#Index">Index</a>
+                    <div>
+                        <div class="subdiv">
+                            <link rel="stylesheet" href="./tml.css">
+                            <script src="./tml.js"></script>
+                            <div id="tml"></div>
+                            <p id="tmlout" style="display: none;">
+                                Hello, my name is Efgeen and I am a skilled software engineer with a deep passion for programming. 
+                                At 24 years old, I have already devoted countless hours to mastering the intricacies of software development and continuously seek to expand my knowledge and skills.
+                                <br>
+                                <br>
+                                My name is Efgeen. I am a 24-year-old software engineer. 
+                                <br>
+                                <br>
+                                I am deeply passionate about programming and devote the majority of my free time to continuously learning, 
+                                practicing, and perfecting my expertise in the C language. 
+                                <br>
+                                <br>
+                                My areas of focus include advanced programming techniques and optimization strategies, 
+                                with a particular love for bitwise operations and their applications in high-performance code.
+                                <br>
+                                <br>
+                                In addition to my expertise in the C language and advanced programming techniques, 
+                                I also have extensive experience in a range of programming areas, 
+                                including netcode development, game hacking, game engine development, and the implementation of the Entity Component System (ECS). 
+                                My passion for programming has led me to pursue diverse areas of focus, 
+                                from high-performance code optimization to efficient implementation of complex programming systems.
+                            </p>
+                            <script>
+                                tml.input("whoami<br>", () => {
+                                    tml.output(document.getElementById("tmlout").innerHTML);
+                                });
+                            </script>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <footer style="position: fixed;
+                       bottom: 0;
+                       right: 0;
+                       padding: 8px;
+                       background-color: var(--efalpha);
+                       color: var(--efwhite);
+                       font: 12px Verdana, sans-serif;">
+            &copy; 2023 Efgeen
+        </footer>
+    </body>
+</html>
