@@ -83,6 +83,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let fpsElement;
     let tpsElement;
     let rttElement;
+    let popupElement;
     if (!function start() {
         if (!(versionElement = document.querySelector("#version"))) {
             console.error("404 versionElement");
@@ -108,6 +109,21 @@ document.addEventListener('DOMContentLoaded', function() {
         fpsElement.innerHTML = `<span style="color: var(--efviolet)">FPS: </span><span style="color:var(--efgray)">Not Measured</span>`;
         tpsElement.innerHTML = `<span style="color: var(--efmagenta)">TPS: </span><span style="color:var(--efgray)">Not Measured</span>`;
         rttElement.innerHTML = `<span style="color: var(--efrose)">RTT: </span><span style="color: var(--efgray)">Not Connected</span>`;
+
+        // popups
+        popupElement = document.querySelector("#popup");
+        versionElement.addEventListener("mouseover", (event) => {
+            popupElement.style.display = "block";
+            popupElement.innerHTML = `<span style="color:var(--efred)">&lt;major&gt;</span><span style="color:var(--efyellow)">.</span><span style="color:var(--efgreen)">&lt;minor&gt;</span><span style="color:var(--efcyan)">.</span><span style="color:var(--efazure)">&lt;patch&gt;</span><span style="color:var(--efmagenta)">-</span><span style="color:var(--efdarkred)">&lt;pre-release&gt;</span><span style="color:var(--efdarkyellow)">+</span><span style="color:var(--efdarkgreen)">&lt;build&gt;</span>`;
+        });
+        versionElement.addEventListener("mousemove", (event) => {
+            popup.style.left = `${event.clientX + 1}px`;
+            popup.style.top = `${event.clientY + 1}px`;
+        });
+        versionElement.addEventListener("mouseout", (event) => {
+            popupElement.style.display = "none";
+        });
+
         return true;
     }()) {
         return;

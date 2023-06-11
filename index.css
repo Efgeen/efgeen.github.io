@@ -19,6 +19,10 @@
     --efmagenta: #f743f2FF;
     --efrose: #f74398FF;
     
+    --efdarkred: #762a24FF;
+    --efdarkyellow: #727328FF;
+    --efdarkgreen: #2d7429FF;
+
     --efprimary: var(--efwhite);
     --efsecondary: var(--efblack);
     --eftetriary: var(--efalpha);
@@ -179,6 +183,17 @@ div#os > div:first-of-type:nth-last-of-type(3) > div:nth-of-type(3):last-of-type
 }
 
 
+
+/* popup */
+.popup {
+    position: absolute;
+    display: none;
+    color: var(--efwhite);
+    background-color: var(--efalpha);
+    padding: 6px;
+    border: 1px solid var(--efwhite);
+}
+/* !popup */
 
 
 /* bot */
